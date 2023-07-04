@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Trendyol</title>
+  <link rel="shortcut icon" href="https://cdn.dsmcdn.com/web/production/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body> 
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="logo">
+          <a href="index.html">
+            <img src="{{ url_for('static', filename='images/5952839.png') }}" alt="Image">
+            <div class="logo-text">
+              <p class="big-logo">Trendyol</p>
+            </div>
+          </a>
+        </div> 
+        <div class="shop-icon">
+          <div class="dropdown">
+            <img src="{{ url_for('static', filename='images/account.png') }}" alt="Image">
+            <div class="dropdown-menu">
+              <ul>
+                <li><a href="account.html">My Account</a></li>                               
+                <li><a href="/">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div> 
+      </div> 
+    </div> 
+  </header> 
+
+  <main>      
+    <div class="main-content">
+      <div class="sidebar">
+        <h3>Menu</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="order.html">Order</a></li>
+          <li><a href="product.html">Product</a></li>
+          <li><a href="category.html">Category</a></li>
+          <li><a href="stock.html">Stock</a></li>
+          <li><a class="active" href="users.html">Users</a></li>
+        </ul>
+      </div>
+      <div class="content">
+        <h3>Users</h3>
+        <div class="users-content">
+          <table>
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Billing Address</th>
+                <th>Shipping Address</th>
+              </tr>
+            </thead>
+            <tbody id="users-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main> 
+
+  <footer>
+    <div class="container">
+      <div class="footer-bar">
+        <div class="copyright-text">
+          <p>Copryright 2023 - Trendyol - Software Engineering</p>
+        </div>
+      </div> 
+    </div>
+  </footer> 
+  <script>
+    fetch('/customer')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('users-table-body');
+        data.forEach(customer => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${customer[0]}</td>
+            <td>${customer[1]}</td>
+            <td>${customer[2]}</td>
+            <td>${customer[3]}</td>
+            <td>${customer[4]}</td>
+            <td>${customer[5]}</td>
+            <td>${customer[6]}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+  
+  
+</body>
+</html>

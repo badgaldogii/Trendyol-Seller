@@ -1,0 +1,179 @@
+
+<!-- run code :   ..\Desktop\trendyol seller site - software> cd sellerSite
+ 				  ..\Desktop\trendyol seller site - software\sellerSite> python -m http.server -->
+                   <!DOCTYPE html>
+                   <html lang="en">
+                   
+                        <head>
+                            
+                           <meta charset="UTF-8">
+                           
+                           <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                           
+                            <title>Trendyol</title>
+                            <link rel="shortcut icon" href="https://cdn.dsmcdn.com/web/production/favicon.ico">
+                            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+                            
+                        </head>
+                   <body> 
+                       
+                       <header>
+                           <div class="container">
+                               <div class="brand">
+                                   <div class="logo">
+                                       <a href="index.html">
+                                        <img src="{{ url_for('static', filename='images/5952839.png') }}" alt="Image">
+                                           <div class="logo-text">
+                                               <p class="big-logo">Trendyol</p>
+                                               
+                                           </div>
+                                       </a>
+                                   </div> 
+                                   <div class="shop-icon">
+                                       <div class="dropdown">
+                                        <img src="{{ url_for('static', filename='images/account.png') }}" alt="Image">
+                                           <div class="dropdown-menu">
+                                               <ul>
+                                                   <li><a href="account.html">My Account</a></li>							
+                                                   <li><a href="/">Logout</a></li>
+                                               </ul>
+                                           </div>
+                                       </div>
+                                   </div> 
+                               </div> 
+                           </div> 
+                       </header> 
+                   
+                       <main>
+                           
+                           <div class="main-content">
+                               <div class="sidebar">
+                                   <h3>Menu</h3>
+                                   <ul>
+                                       <li><a class="active" href="index.html">Home</a></li>
+                                       <li><a href="order.html">Order</a></li>
+                                       <li><a href="product.html">Product</a></li>
+                                       <li><a href="category.html">Category</a></li>
+                                       <li><a href="stock.html">Stock</a></li>
+                                       <li><a href="users.html">Users</a></li>
+                                   </ul>				
+                               </div>
+                               <div class="content dashboard">
+                                   <h3>Dashboard</h3>
+                                   <div class="content-data">
+                                       <div class="content-detail">
+                                           <h4>Low Stock Report</h4>
+                                           <table>
+                                             <thead>
+                                               <tr>
+                                                 <th>Product_ID</th>
+                                                 <th>categoryType</th>
+                                                 <th>Quantity</th>
+                                               </tr>
+                                             </thead>
+                                             <tbody id="low-stock-table-body"></tbody>
+                                           </table>
+                                       </div>
+                                       <div class="content-detail">
+                                           <h4>Recent Order</h4>
+                                           <table>
+                                               <thead>
+                                                   <tr>
+                                                       <th>Order_Date</th>
+                                                       <th>Order_ID</th>
+                                                       <th>Customer_ID</th>
+                                                       
+                                                   </tr>
+                                               </thead>
+                                               <tbody id="recent-order-table-body"></tbody>
+                                               
+                                           </table>
+                                       </div>
+                                       <div class="content-detail">
+                                           <h4>Completed Order</h4>
+                                           <table>
+                                             <thead>
+                                               <tr>
+                                                 <th>Order_ID</th>
+                                                 <th>Order_Date</th>
+                                                 <th>Total_Price</th>
+                                                 <th>Customer_ID</th>
+                                                 <th>Payment_Method</th>
+                                               </tr>
+                                             </thead>
+                                             <tbody id="completed-order-table-body"></tbody>
+                                           </table>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>		
+                   
+                       </main> 
+                   
+                       <footer>
+                           
+                           <div class="container">
+                               <div class="footer-bar">
+                                   <div class="copyright-text">
+                                       <p>Copryright 2023 - Trendyol - Software Engineering</p>
+                                   </div>
+                               </div> 
+                           </div>
+                       </footer> 
+                       <script>
+                        // Fetch the low stock data from the server and populate the table
+                          fetch('/low_stock')
+                            .then(response => response.json())
+                            .then(data => {
+                                const tableBody = document.getElementById('low-stock-table-body');
+                                data.forEach(rowData => {
+                                  const [productID, categoryType, quantity] = rowData;
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${productID}</td>
+                                    <td>${categoryType}</td>
+                                    <td>${quantity}</td>
+                                `;
+                                tableBody.appendChild(row);
+                              });
+                            })
+                            .catch(error => console.error(error));
+                
+                        // Fetch the completed order data from the server and populate the table
+                          fetch('/completed_order')
+                            .then(response => response.json())
+                            .then(data => {
+                                const tableBody = document.getElementById('completed-order-table-body');
+                                const [orderID, orderDate, totalPrice, customerID, paymentMethod] = data[0];
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${orderID}</td>
+                                    <td>${orderDate}</td>
+                                    <td>${totalPrice}</td>
+                                    <td>${customerID}</td>
+                                    <td>${paymentMethod}</td>
+                                `;
+                                tableBody.appendChild(row);
+                            })
+                            .catch(error => console.error(error));
+                
+                        // Fetch the recent order data from the server and populate the table
+                          fetch('/recent_order')
+                            .then(response => response.json())
+                            .then(data => {
+                                const tableBody = document.getElementById('recent-order-table-body');
+                                const [orderDate, orderID, customerID] = data[0];
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${orderDate}</td>
+                                    <td>${orderID}</td>
+                                    <td>${customerID}</td>
+                                `;
+                                tableBody.appendChild(row);
+                            })
+                            .catch(error => console.error(error));
+                      </script>
+                       
+                   </body>
+                   
+                   </html>

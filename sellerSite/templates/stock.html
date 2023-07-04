@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trendyol</title>
+    <link rel="shortcut icon" href="https://cdn.dsmcdn.com/web/production/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="brand">
+          <div class="logo">
+            <a href="index.html">
+              <img src="{{ url_for('static', filename='images/5952839.png') }}" alt="Image">
+              <div class="logo-text">
+                <p class="big-logo">Trendyol</p>
+              </div>
+            </a>
+          </div>
+          <div class="shop-icon">
+            <div class="dropdown">
+              <img src="{{ url_for('static', filename='images/account.png') }}" alt="Image">
+              <div class="dropdown-menu">
+                <ul>
+                  <li><a href="account.html">My Account</a></li>
+                  <li><a href="/">Logout</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="main-content">
+        <div class="sidebar">
+          <h3>Menu</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="order.html">Order</a></li>
+            <li><a href="product.html">Product</a></li>
+            <li><a href="category.html">Category</a></li>
+            <li><a class="active" href="stock.html">Stock</a></li>
+            <li><a href="users.html">Users</a></li>
+          </ul>
+        </div>
+        <div class="content">
+          <h3>Stock</h3>
+          <div class="content-data">
+            <div class="content-form">
+              <form id="add-stock-form" action="/stock.html" method="POST">
+                <h4>Add Stock</h4>
+                <div class="form-inline">
+                  
+                  <div class="form-group">
+                    <label>Product ID</label>
+                    <input type="text" name="productID">
+                  </div>
+                
+                
+                  <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="text" name="quantity">
+                  </div>
+                </div>
+                <div class="form-inline">
+                  <div class="form-group">
+                    <label>Category type</label>
+                    <input type="text" name="category_type">
+                  </div>
+                  <div class="form-group">
+                    <label>Category id</label>
+                    <input type="text" name="category_id">
+                  </div>
+                </div>
+                <div class="form-inline">
+                  <div class="form-group">
+                    
+                    
+                  </div>
+                </div>
+                  
+
+                
+                <div class="form-group">
+                  <label></label>
+                  <input type="submit" name="addStock" value="Add Stock">
+				  
+                </div>
+              </form>
+            </div>
+            <div class="content-detail">
+              <h4>All Stock Detail</h4>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Stock ID</th>
+                    <th>Product ID</th>
+                    <th>Quantity</th>
+                    <th>Category type</th>
+                    <th>Category id</th>
+                    <th>Last Update</th>
+                  </tr>
+                </thead>
+                <tbody id="stock-table-body">
+                  {% for item in stock %}
+                  <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td>{{ item[3] }}</td>
+                    <td>{{ item[4] }}</td>
+                    <td>{{ item[5] }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-bar">
+          <div class="copyright-text">
+            <p>Copryright 2023 - Trendyol - Software Engineering</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    
+  </body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Trendyol</title>
+  <link rel="shortcut icon" href="https://cdn.dsmcdn.com/web/production/favicon.ico">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="logo">
+          <a href="index.html">
+            <img src="{{ url_for('static', filename='images/5952839.png') }}" alt="Image">
+            <div class="logo-text">
+              <p class="big-logo">Trendyol</p>
+            </div>
+          </a>
+        </div>
+        
+        <div class="shop-icon">
+          <div class="dropdown">
+            <img src="{{ url_for('static', filename='images/account.png') }}" alt="Image">
+            <div class="dropdown-menu">
+              <ul>
+                <li><a href="account.html">My Account</a></li>							
+								<li><a href="/">Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </header>
+  
+
+  <main>
+
+    <div class="main-content">
+      <div class="sidebar">
+        <h3>Menu</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="order.html">Order</a></li>
+          <li><a href="product.html">Product</a></li>
+          <li><a class="active" href="category.html">Category</a></li>
+          <li><a href="stock.html">Stock</a></li>
+          <li><a href="users.html">Users</a></li>
+        </ul>
+      </div>
+      <div class="content">
+        <h3>Category</h3>
+        <div class="content-data">
+          <div class="content-form">
+            <form id="add-category-form" action="/category.html" method="POST">
+              <h4>Add Category</h4>
+              <div class="form-inline">
+                <div class="form-group">
+                  <label>category_id</label>
+                  <input type="text" name="category_id" required>
+                </div>
+                <div class="form-group">
+                  <label>Category Type</label>
+                  <input type="text" name="category_type" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label></label>
+                <input type="submit" name="addCategory" value="Add Category">
+                
+              </div>
+            </form>
+          </div>
+          <div class="content-detail">
+            <h4>All Categories</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody id="category-table-body">
+                {% for category in categories %}
+                <tr>
+                  <td>{{ category[0] }}</td>
+                  <td>{{ category[1] }}</td>
+                </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  
+
+  <footer>
+    <div class="container">
+      <div class="footer-bar">
+        <div class="copyright-text">
+          <p>Copryright 2023 - Trendyol - Software Engineering</p>
+        </div>
+      </div>
+      
+    </div>
+  </footer>
+  
+
+ 
+</body>
+
+</html>
